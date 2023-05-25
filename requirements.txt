@@ -6,7 +6,7 @@ torch
 torchvision
 Pillow
 Cmake
-opencv-python
+opencv-python-headless
 pandas
 pyyaml
 psutil
