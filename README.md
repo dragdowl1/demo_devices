@@ -9,4 +9,11 @@
   <h4>Model training</h4>
   <ul>
   <li>The training dataset was made out of photos from customer reviews on web stores like Amazon and eBay.</li>
+  <li>Model used: Yolov5 with AdamW</li>
+  <li>Obtained results:</li>
+  <br>
+  
+  <p align="center">
+  <img src="images/conf_matrix.png" width="1200" title="Confusion matrix">
+  </p>
   <li>See the training_notebooks folder for the training process and data augmentation details.</li><ul>
