@@ -6,5 +6,7 @@
   <tr><td>Chargers</td><td>Doorbells</td><td>Power outlets</td></tr>
   <tr><td>Keyfobs</td><td>Pens</td><td>Fire detectors</td></tr>
   </table>
-  <p> The training dataset was made out of photos from customer reviews on web stores like Amazon and eBay.</p>
-  
+  <h4>Model training</h4>
+  <ul>
+  <li>The training dataset was made out of photos from customer reviews on web stores like Amazon and eBay.</li>
+  <li>See the training_notebooks folder for the training process and data augmentation details.</li><ul>
