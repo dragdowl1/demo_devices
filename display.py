@@ -82,10 +82,10 @@ curr_dir = os.getcwd()
 add_bg_from_local(curr_dir+"/images/back1.png") 
 
 st.title("Malicious device detection")
-st.info("Object detection for nine potentially malicious devices with hidden Wi-fi cameras: alarms, speakers, wall clocks, power outlets, chargers, doorbells, keyfobs, pens and fire detectors. The training dataset was made out of photos from customer reviews on web stores like Amazon and eBay. ")
+st.info("Object detection for nine potentially malicious devices with hidden Wi-fi cameras: alarms, speakers, wall clocks, power outlets, chargers, doorbells, keyfobs, pens and fire detectors.")
 model = load_model()
 
-st.write("Select an image from examples below -> then press the Start button for detection")
+# st.write("Select an image from examples below -> then press the Start button for detection")
 
 img = image_select(
     label="Select an example image",
