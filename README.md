@@ -1,5 +1,5 @@
 <h2> Object detection for nine types of malicious devices with hidden Wi-fi cameras</h2>
-<h3>Explore the <u><a href = 'https://malicious-devices.streamlit.app/'>demo app</a></u></h3>
+<!-- <h3>Explore the <u><a href = 'https://malicious-devices.streamlit.app/'>demo app</a></u></h3> -->
 <table>
   <th>Detected classes
   <tr><td>Alarms</td><td>Speakers</td><td>Wall clocks</td></tr>
