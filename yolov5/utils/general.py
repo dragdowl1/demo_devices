@@ -31,7 +31,9 @@ from zipfile import ZipFile, is_zipfile
 import cv2
 import numpy as np
 import pandas as pd
-import pkg_resources as pkg
+import importlib.metadata as importlib_metadata
+from packaging.requirements import Requirement
+from packaging.version import parse as parse_version
 import torch
 import torchvision
 import yaml
@@ -376,7 +378,7 @@ def check_python(minimum='3.7.0'):
 
 def check_version(current='0.0.0', minimum='0.0.0', name='version ', pinned=False, hard=False, verbose=False):
     # Check version vs. required version
-    current, minimum = (pkg.parse_version(x) for x in (current, minimum))
+    current, minimum = (parse_version(x) for x in (current, minimum))
     result = (current == minimum) if pinned else (current >= minimum)  # bool
     s = f'WARNING ⚠️ {name}{minimum} is required by YOLOv5, but {name}{current} is currently installed'  # string
     if hard:
@@ -384,6 +386,16 @@ def check_version(current='0.0.0', minimum='0.0.0', name='version ', pinned=Fals
     if verbose and not result:
         LOGGER.warning(s)
     return result
+
+
+def _requirement_met(r):
+    # True if requirement string r (e.g. 'torch>=1.7.0') is satisfied by the installed package
+    try:
+        req = Requirement(r)
+        installed = importlib_metadata.version(req.name)
+    except (importlib_metadata.PackageNotFoundError, ValueError):
+        return False
+    return req.specifier.contains(installed, prereleases=True)
 
 
 @TryExcept()
@@ -395,16 +407,15 @@ def check_requirements(requirements=ROOT / 'requirements.txt', exclude=(), insta
         file = requirements.resolve()
         assert file.exists(), f'{prefix} {file} not found, check failed.'
         with file.open() as f:
-            requirements = [f'{x.name}{x.specifier}' for x in pkg.parse_requirements(f) if x.name not in exclude]
+            lines = [l.split('#')[0].strip() for l in f]  # strip comments
+            requirements = [f'{x.name}{x.specifier}' for x in (Requirement(l) for l in lines if l) if x.name not in exclude]
     elif isinstance(requirements, str):
         requirements = [requirements]
 
     s = ''
     n = 0
     for r in requirements:
-        try:
-            pkg.require(r)
-        except (pkg.VersionConflict, pkg.DistributionNotFound):  # exception if requirements not met
+        if not _requirement_met(r):  # requirement missing or version conflict
             s += f'"{r}" '
             n += 1
 
