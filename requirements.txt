@@ -1,3 +1,4 @@
+--extra-index-url https://download.pytorch.org/whl/cpu
 streamlit>=1.30,<2
 streamlit-image-select
 python-multipart
